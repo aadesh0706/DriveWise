@@ -1,5 +1,13 @@
 # DriveWise
 
+### [⬇️ Download DriveWise for Windows](https://github.com/aadesh0706/DriveWise/releases/download/v1.0.0/DriveWise-Setup-1.0.0.exe)
+
+[![Download DriveWise](https://img.shields.io/badge/Download-DriveWise%20Setup%20v1.0.0-5b8dff?style=for-the-badge&logo=windows&logoColor=white)](https://github.com/aadesh0706/DriveWise/releases/download/v1.0.0/DriveWise-Setup-1.0.0.exe)
+
+*Direct download, no sign-up — installs in a few seconds.*
+
+![DriveWise dashboard](docs/screenshot.png)
+
 [![GitHub issues](https://img.shields.io/github/issues/aadesh0706/DriveWise)](https://github.com/aadesh0706/DriveWise/issues)
 [![GitHub forks](https://img.shields.io/github/forks/aadesh0706/DriveWise)](https://github.com/aadesh0706/DriveWise/network/members)
 [![GitHub stars](https://img.shields.io/github/stars/aadesh0706/DriveWise)](https://github.com/aadesh0706/DriveWise/stargazers)
