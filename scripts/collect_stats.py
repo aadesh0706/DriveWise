@@ -5,10 +5,18 @@ Collects DriveWise repo analytics and appends them to stats/history.json
 14-day traffic retention window.
 
 Run manually:
-    GITHUB_TOKEN=<a token with repo access> python3 scripts/collect_stats.py
+    GITHUB_TOKEN=<automatic-or-any-token> TRAFFIC_TOKEN=<fine-grained PAT, Administration:Read> python3 scripts/collect_stats.py
 
-Normally this runs on a daily schedule via
-.github/workflows/repo-stats.yml, using the automatic GITHUB_TOKEN.
+Normally this runs on a daily schedule via .github/workflows/repo-stats.yml.
+Two tokens are used, for least-privilege reasons:
+  - GITHUB_TOKEN   - the automatic Actions token. Used for public repo/release
+                      reads and for committing stats/ back to the repo.
+  - TRAFFIC_TOKEN  - a fine-grained personal access token stored as the repo
+                      secret TRAFFIC_PAT, with "Administration: Read-only" on
+                      this repo. That permission is required for the four
+                      /traffic/* endpoints - the automatic GITHUB_TOKEN is not
+                      allowed to call them, no matter what `permissions:` is
+                      set in the workflow.
 """
 import csv
 import datetime
@@ -20,13 +28,14 @@ import urllib.request
 REPO = "aadesh0706/DriveWise"
 API = "https://api.github.com"
 TOKEN = os.environ.get("GITHUB_TOKEN", "")
+TRAFFIC_TOKEN = os.environ.get("TRAFFIC_TOKEN") or TOKEN
 
 
-def gh_get(path):
+def gh_get(path, token=None):
     req = urllib.request.Request(
         f"{API}{path}",
         headers={
-            "Authorization": f"Bearer {TOKEN}",
+            "Authorization": f"Bearer {token or TOKEN}",
             "Accept": "application/vnd.github+json",
             "X-GitHub-Api-Version": "2022-11-28",
         },
@@ -68,31 +77,33 @@ def main():
             total_downloads += asset.get("download_count", 0)
     history[today]["release_downloads_total"] = total_downloads
 
-    # ---- Traffic: views / clones (needs push access - the Actions token has this on its own repo) ----
+    # ---- Traffic: views / clones ----
+    # Requires "Administration: Read-only" on a fine-grained PAT (TRAFFIC_TOKEN).
+    # The automatic GITHUB_TOKEN cannot access these endpoints at all.
     try:
-        views = gh_get(f"/repos/{REPO}/traffic/views")
+        views = gh_get(f"/repos/{REPO}/traffic/views", token=TRAFFIC_TOKEN)
         for day in views.get("views", []):
             d = day["timestamp"][:10]
             history.setdefault(d, {})
             history[d]["views"] = day["count"]
             history[d]["unique_visitors"] = day["uniques"]
     except urllib.error.HTTPError as e:
-        print(f"Could not fetch traffic/views ({e.code}) - needs a token with push access to this repo.")
+        print(f"Could not fetch traffic/views ({e.code}) - set the TRAFFIC_PAT secret (Administration: Read-only).")
 
     try:
-        clones = gh_get(f"/repos/{REPO}/traffic/clones")
+        clones = gh_get(f"/repos/{REPO}/traffic/clones", token=TRAFFIC_TOKEN)
         for day in clones.get("clones", []):
             d = day["timestamp"][:10]
             history.setdefault(d, {})
             history[d]["clones"] = day["count"]
             history[d]["unique_cloners"] = day["uniques"]
     except urllib.error.HTTPError as e:
-        print(f"Could not fetch traffic/clones ({e.code}) - needs a token with push access to this repo.")
+        print(f"Could not fetch traffic/clones ({e.code}) - set the TRAFFIC_PAT secret (Administration: Read-only).")
 
-    # ---- Where visitors come from / what they look at (also push-access only) ----
+    # ---- Where visitors come from / what they look at (same permission) ----
     for label, path in [("popular_paths", "paths"), ("popular_referrers", "referrers")]:
         try:
-            data = gh_get(f"/repos/{REPO}/traffic/popular/{path}")
+            data = gh_get(f"/repos/{REPO}/traffic/popular/{path}", token=TRAFFIC_TOKEN)
             with open(f"stats/{label}.json", "w") as f:
                 json.dump(data, f, indent=2)
         except urllib.error.HTTPError as e:

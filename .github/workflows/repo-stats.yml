@@ -17,6 +17,7 @@ jobs:
       - name: Collect stats
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TRAFFIC_TOKEN: ${{ secrets.TRAFFIC_PAT }}
         run: python3 scripts/collect_stats.py
 
       - name: Commit updated stats
