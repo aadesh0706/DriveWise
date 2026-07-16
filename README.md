@@ -11,7 +11,6 @@
 [![GitHub issues](https://img.shields.io/github/issues/aadesh0706/DriveWise)](https://github.com/aadesh0706/DriveWise/issues)
 [![GitHub forks](https://img.shields.io/github/forks/aadesh0706/DriveWise)](https://github.com/aadesh0706/DriveWise/network/members)
 [![GitHub stars](https://img.shields.io/github/stars/aadesh0706/DriveWise)](https://github.com/aadesh0706/DriveWise/stargazers)
-[![License](https://img.shields.io/github/license/aadesh0706/DriveWise)](https://github.com/aadesh0706/DriveWise/blob/main/LICENSE)
 [![Top language](https://img.shields.io/github/languages/top/aadesh0706/DriveWise)](https://github.com/aadesh0706/DriveWise)
 [![Latest release](https://img.shields.io/github/v/release/aadesh0706/DriveWise)](https://github.com/aadesh0706/DriveWise/releases)
 [![Downloads](https://img.shields.io/github/downloads/aadesh0706/DriveWise/total)](https://github.com/aadesh0706/DriveWise/releases)
