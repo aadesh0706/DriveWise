@@ -254,13 +254,28 @@
     "watchers": 0
   },
   "2026-08-01": {
+    "clones": 3,
     "forks": 0,
     "open_issues": 0,
     "release_downloads_total": 21,
     "stars": 1,
+    "unique_cloners": 3,
+    "unique_visitors": 1,
+    "views": 2,
     "watchers": 0
   },
   "2026-08-02": {
+    "clones": 12,
+    "forks": 0,
+    "open_issues": 0,
+    "release_downloads_total": 21,
+    "stars": 1,
+    "unique_cloners": 8,
+    "unique_visitors": 0,
+    "views": 0,
+    "watchers": 0
+  },
+  "2026-08-03": {
     "forks": 0,
     "open_issues": 0,
     "release_downloads_total": 21,
