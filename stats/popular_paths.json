@@ -2,12 +2,24 @@
   {
     "path": "/aadesh0706/DriveWise",
     "title": "Overview",
-    "count": 3,
-    "uniques": 3
+    "count": 4,
+    "uniques": 4
+  },
+  {
+    "path": "/aadesh0706/DriveWise/actions",
+    "title": "/actions",
+    "count": 1,
+    "uniques": 1
   },
   {
     "path": "/aadesh0706/DriveWise/blob/main/docs/screenshot.png",
     "title": "/blob/main/docs/screenshot.png",
+    "count": 1,
+    "uniques": 1
+  },
+  {
+    "path": "/aadesh0706/DriveWise/pulls",
+    "title": "/pulls",
     "count": 1,
     "uniques": 1
   }
